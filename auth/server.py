@@ -19,9 +19,17 @@ def login():
                 database= os.environ.get("MYSQL_DB"),
                 port= int(os.environ.get("MYSQL_PORT"))   
             )
+    
+    # connection = pymysql.connections.Connection(
+    #             host= os.getenv("MYSQL_HOST"),
+    #             user= os.getenv("MYSQL_USER"),
+    #             password = os.getenv("MYSQL_PASSWORD"),
+    #             database= os.getenv("MYSQL_DB"),
+    #             port= int(os.getenv("MYSQL_PORT"))   
+    #         )
+
     cursor = connection.cursor()
-    sql_c = "SELECT email, password FROM user WHERE email=%s", (auth.username)
-    res = cursor.execute(sql_c)
+    res = cursor.execute("SELECT email, password FROM user WHERE email=%s", (auth.username))
     if res > 0 :
         user_row = cursor.fetchone()
         email = user_row[0]
